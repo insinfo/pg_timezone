@@ -48,22 +48,29 @@ class PgLocationDatabase {
   bool get isInitialized => locations.isNotEmpty;
 }
 
-
-
 final _database = PgLocationDatabase();
-
 
 /// Global TimeZone database
 PgLocationDatabase get timeZoneDatabase => _database;
-
-
 
 /// Find [Location] by its name.
 ///
 /// ```dart
 /// final detroit = getLocation('America/Detroit');
 /// ```
-Location getLocation(String locationName) {
-  return _database.get(locationName);
-}
+Location getLocation(String pgTimeZone) {
+  final tzLocations = timeZoneDatabase.locations.entries
+      .where((e) {
+        return e.key.toLowerCase() == pgTimeZone ||
+            e.value.currentTimeZone.abbreviation.toLowerCase() == pgTimeZone;
+      })
+      .map((e) => e.value)
+      .toList();
 
+  if (tzLocations.isEmpty) {
+    throw LocationNotFoundException(
+        'Location with the name "$pgTimeZone" doesn\'t exist');
+  }
+  final tzLocation = tzLocations.first;
+  return tzLocation;  
+}
