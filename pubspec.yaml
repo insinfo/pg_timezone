@@ -1,7 +1,7 @@
 name: pg_timezone
 version: 1.0.0
 description: Time zone database and time zone aware DateTime.
-repository: https://github.com/srawlins/timezone
+repository: https://github.com/insinfo/pg_timezone
 
 environment:
   sdk: '>=2.19.0 <3.0.0'
