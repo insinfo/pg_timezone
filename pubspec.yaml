@@ -1,5 +1,5 @@
 name: pg_timezone
-version: 1.0.0
+version: 1.0.1
 description: Time zone database and time zone aware DateTime.
 repository: https://github.com/insinfo/pg_timezone
 
